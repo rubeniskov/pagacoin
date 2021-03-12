@@ -7,6 +7,9 @@
     "build": "webpack",
     "start": "webpack serve"
   },
+  "browser": {
+    "fs": false
+  },
   "browserslist": [
     "last 1 Chrome version"
   ],
@@ -32,6 +35,7 @@
     "@types/jsonpack": "^1.1.0",
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.1",
+    "@types/react-redux": "^7.1.16",
     "@types/react-router": "^5.1.12",
     "@types/react-router-dom": "^5.1.7",
     "@types/styled-components": "^5.1.7",
@@ -42,24 +46,34 @@
     "jest-fetch-mock": "^3.0.3",
     "ts-loader": "^8.0.17",
     "typescript": "^4.2.3",
+    "url-loader": "^4.1.1",
     "webpack": "^5.24.3",
     "webpack-cli": "^4.5.0",
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
     "@apollo/client": "^3.3.11",
+    "@graphql-tools/schema": "^7.1.3",
     "@styled-icons/boxicons-regular": "^10.23.0",
+    "@styled-icons/feather": "^10.18.0",
     "buffer": "^6.0.3",
     "clsx": "^1.1.1",
     "graphql": "^15.5.0",
+    "graphql-tools": "^7.0.4",
+    "lodash.flatten": "^4.4.0",
+    "lodash.omit": "^4.5.0",
+    "moment": "^2.29.1",
     "process": "^0.11.10",
     "react": "17.0.1",
     "react-dom": "17.0.1",
+    "react-is": "^17.0.1",
     "react-redux": "^7.2.2",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "redux": "^4.0.5",
     "styled-components": "^5.2.1",
-    "styled-icons": "^10.29.0"
+    "styled-icons": "^10.29.0",
+    "uri-template": "^1.0.1",
+    "use-debounce": "^6.0.0"
   }
 }
