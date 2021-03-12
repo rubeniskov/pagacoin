@@ -1,5 +1,15 @@
 import { gql } from '@apollo/client';
 
+export const MOCK_DATA_POPULATE = gql`
+  mutation MockDataPopulate {
+    mockDataPopulate {
+      users,
+      wallets,
+      transactions
+    }
+  }
+`;
+
 export const TRANSFER_WALLET_MONEY = gql`
   mutation TransferWalletMoney($walletId: String!, $targetId: String!, $amount: Float!) {
     transferWalletMoney(walletId: $walletId, targetId: $targetId, amount: $amount) {

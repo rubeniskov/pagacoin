@@ -154,7 +154,7 @@ const CreditCardSvg = ({
       CARD NUMBER
     </text>
     <text className='text1' x="180" y="350">
-      AEI34
+      {id.slice(-5).toUpperCase()}
     </text>
   </CreditCardSvgStyled>
 )}

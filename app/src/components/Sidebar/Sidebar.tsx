@@ -6,8 +6,7 @@ import SidebarFooter from './SidebarFooter';
 import SidebarHeader from './SidebarHeader';
 
 import { Users } from '@styled-icons/feather';
-import { Transfer } from '@styled-icons/boxicons-regular';
-import { HomeAlt } from '@styled-icons/boxicons-regular';
+import { Transfer, HomeAlt, Wallet } from '@styled-icons/boxicons-regular';
 
 const items = [{
   icon: HomeAlt,
@@ -17,6 +16,10 @@ const items = [{
   icon: Users,
   label: 'Users',
   path: '/users'
+}, {
+  icon: Wallet,
+  label: 'Wallets',
+  path: '/wallets'
 }, {
   icon: Transfer,
   label: 'Transactions',

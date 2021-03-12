@@ -24,7 +24,7 @@ const LayoutMainConatiner = styled.div`
   }
 `
 
-const LayoutMain = ({ children, sidebar, extra }) => {
+const LayoutMain = ({ children, sidebar }) => {
   return (
     <LayoutMainConatiner>
         <div className={clsx('aside', 'sidebar', 'compact')}>{sidebar}</div>
