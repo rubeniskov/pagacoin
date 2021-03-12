@@ -19,11 +19,17 @@ export default `
     status: String
     cdate: String
   }
+  type MockDataStatus {
+    users: Int
+    wallets: Int
+    transactions: Int
+  }
   type Mutation {
     createUser(firstname: String, lastname: String): User
     createWallet(userId: String!, amount: Float): Wallet
     transferWalletMoney(walletId: String!, targetId: String!, amount: Float!): Wallet
     chargeWalletMoney(walletId: String!, amount: Float!): Wallet
+    mockDataPopulate(minUsers: Int, maxUsers: Int, minWalletsPerUser: Int, maxWalletPerUser: Int, minTransactions: Int, maxTransactions: Int): MockDataStatus
   }
   type Query {
     wallet(walletId: String!): Wallet

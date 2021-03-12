@@ -40,6 +40,13 @@ const createResolver = (path: string, opts: ResolverOptions) => (root, args, ctx
     if (response.status === 204) {
       return [];
     }
+    
+    if (response.status >= 400) {
+      return response.json().then(({ message }) =>{
+        return Promise.reject(new Error(message));
+      });
+    }
+    
     return response.json().then((result) => {
       return unwindResolvedData(result, restOpts)
     });
@@ -88,14 +95,10 @@ export default {
     transferWalletMoney: createResolver('/wallets/{walletId}/transfer', {
       mapResult: (result) => result,
       method: 'POST'
+    }),
+    mockDataPopulate: createResolver('/mock/populate', {
+      mapResult: (result) => result,
+      method: 'POST'
     })
   },
-
-  // Post: {
-  //   author: rest.getUser,
-  // },
-
-  // User: {
-  //   posts: rest.getPosts,
-  // },
 };

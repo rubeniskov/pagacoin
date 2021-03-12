@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
-const Button = styled.button`
+export type ButtonProps = {
+  fit?: boolean
+}
+
+const Button = styled.button<ButtonProps>`
   width: ${(({ fit }) => fit ? '100%' : 'auto')};
   padding: 0.8rem;
   background-color: ${({ theme }) => theme.color.primary.darken};

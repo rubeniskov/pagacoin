@@ -48,7 +48,6 @@ const ViewUsers = () => {
     <div>
       <Jumbo>
         <h1>Users</h1>
-        <small>Welcome</small>
       </Jumbo>
       <UserTable 
         onRowClick={handleRowClick} 
