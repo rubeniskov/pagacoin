@@ -38,12 +38,12 @@ public class TransactionController {
   private TransactionRepository repository;
 
   @Autowired
-	private TransactionModelAssembler assembler;
+  private TransactionModelAssembler assembler;
 
   @RequestMapping(method = RequestMethod.GET)
   public ResponseEntity<CollectionModel<TransactionModel>> getAll() {
     List<TransactionEntity> transactions = (List<TransactionEntity>) repository.findAll();
-		if (transactions.isEmpty()) {
+    if (transactions.isEmpty()) {
       return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     } else {
       return new ResponseEntity<>(

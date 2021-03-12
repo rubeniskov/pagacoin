@@ -19,35 +19,35 @@ import com.pagantis.pagacoin.controller.WalletController;
 @Component
 public class WalletModelAssembler extends RepresentationModelAssemblerSupport<WalletEntity, WalletModel> {
   public WalletModelAssembler() {
-		super(WalletController.class, WalletModel.class);
-	}
+    super(WalletController.class, WalletModel.class);
+  }
 
   @Override
-	public WalletModel toModel(WalletEntity entity) 
-	{
-		WalletModel model = instantiateModel(entity);
+  public WalletModel toModel(WalletEntity entity) 
+  {
+    WalletModel model = instantiateModel(entity);
 
-		model.add(linkTo(
-				methodOn(WalletController.class)
-				.getById(entity.getId()))
-				.withSelfRel());
-		
+    model.add(linkTo(
+        methodOn(WalletController.class)
+        .getById(entity.getId()))
+        .withSelfRel());
+    
     model.setId(entity.getId());
     model.setUserId(entity.getUserId());
     model.setBalance(entity.getBalance());
     model.setCdate(entity.getCdate());
 
-		return model;
-	}
-	
-	@Override
-	public CollectionModel<WalletModel> toCollectionModel(Iterable<? extends WalletEntity> entities) 
-	{
-		CollectionModel<WalletModel> models = super.toCollectionModel(entities);
+    return model;
+  }
+  
+  @Override
+  public CollectionModel<WalletModel> toCollectionModel(Iterable<? extends WalletEntity> entities) 
+  {
+    CollectionModel<WalletModel> models = super.toCollectionModel(entities);
     
     models.add(linkTo(methodOn(WalletController.class).getAll(null)).withRel("wallets"));
-		models.add(linkTo(methodOn(WalletController.class).getAll(null)).withSelfRel());
-		
-		return models;
-	}
+    models.add(linkTo(methodOn(WalletController.class).getAll(null)).withSelfRel());
+    
+    return models;
+  }
 }

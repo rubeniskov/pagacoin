@@ -18,19 +18,19 @@ import com.pagantis.pagacoin.controller.TransactionController;
 @Component
 public class TransactionModelAssembler extends RepresentationModelAssemblerSupport<TransactionEntity, TransactionModel> {
   public TransactionModelAssembler() {
-		super(TransactionController.class, TransactionModel.class);
-	}
+    super(TransactionController.class, TransactionModel.class);
+  }
 
-	@Override
-	public TransactionModel toModel(TransactionEntity entity) 
-	{
-		TransactionModel model = instantiateModel(entity);
+  @Override
+  public TransactionModel toModel(TransactionEntity entity) 
+  {
+    TransactionModel model = instantiateModel(entity);
 
-		model.add(linkTo(
-				methodOn(TransactionController.class)
-				.getById(entity.getId()))
-				.withSelfRel());
-		
+    model.add(linkTo(
+        methodOn(TransactionController.class)
+        .getById(entity.getId()))
+        .withSelfRel());
+    
     model.setId(entity.getId());
     model.setWalletId(entity.getWalletId());
     model.setSourceId(entity.getSourceId());
@@ -38,34 +38,17 @@ public class TransactionModelAssembler extends RepresentationModelAssemblerSuppo
     model.setStatus(entity.getStatus());
     model.setCdate(entity.getCdate());
 
-		return model;
-	}
-	
-	@Override
-	public CollectionModel<TransactionModel> toCollectionModel(Iterable<? extends TransactionEntity> entities) 
-	{
-		CollectionModel<TransactionModel> models = super.toCollectionModel(entities);
-		
+    return model;
+  }
+  
+  @Override
+  public CollectionModel<TransactionModel> toCollectionModel(Iterable<? extends TransactionEntity> entities) 
+  {
+    CollectionModel<TransactionModel> models = super.toCollectionModel(entities);
+    
     models.add(linkTo(methodOn(TransactionController.class).getAll()).withRel("transactions"));
-		models.add(linkTo(methodOn(TransactionController.class).getAll()).withSelfRel());
-		
-		return models;
-	}
-
-	// private List<ActorModel> toActorModel(List<ActorEntity> actors) {
-	// 	if (actors.isEmpty())
-	// 		return Collections.emptyList();
-
-	// 	return actors.stream()
-	// 			.map(actor -> ActorModel.builder()
-	// 					.id(actor.getId())
-	// 					.firstName(actor.getFirstName())
-	// 					.lastName(actor.getLastName())
-	// 					.build()
-	// 					.add(linkTo(
-	// 							methodOn(WebController.class)
-	// 							.getActorById(actor.getId()))
-	// 							.withSelfRel()))
-	// 			.collect(Collectors.toList());
-	// }
+    models.add(linkTo(methodOn(TransactionController.class).getAll()).withSelfRel());
+    
+    return models;
+  }
 }

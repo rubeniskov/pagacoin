@@ -28,7 +28,6 @@ public class AppMongoConfig {
         DbRefResolver dbRefResolver = new DefaultDbRefResolver(mongoDbFactory);
         MappingMongoConverter converter = new MappingMongoConverter(dbRefResolver, mongoMappingContext);
         List<Converter<?, ?>> converters = new ArrayList<>();
-        // converterList.add(new org.springframework.data.mongodb.test.PersonReadConverter());
         converters.add(new TransactionWriteConverter());
         converter.setCustomConversions(new org.springframework.data.mongodb.core.convert.CustomConversions(converters));
         

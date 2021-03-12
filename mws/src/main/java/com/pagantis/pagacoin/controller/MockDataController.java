@@ -28,11 +28,11 @@ public class MockDataController {
   }
 
   @RequestMapping(value = "/populate", method = RequestMethod.POST)
-	public HttpEntity<String> populate() {
+  public HttpEntity<String> populate() {
     
     mockDataService.populate(new MockDataPayloadModel());
     
-		return new ResponseEntity<String>("Example data generated succesfuly", HttpStatus.OK);
-	}
+    return new ResponseEntity<String>("Example data generated succesfuly", HttpStatus.OK);
+  }
   
 }

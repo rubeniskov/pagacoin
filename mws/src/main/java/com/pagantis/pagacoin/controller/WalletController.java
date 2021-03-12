@@ -46,7 +46,7 @@ public class WalletController {
   private WalletService service;
 
   @Autowired
-	private WalletModelAssembler assembler;
+  private WalletModelAssembler assembler;
 
   @RequestMapping(method = RequestMethod.POST)
   public HttpEntity<WalletEntity> create() {
@@ -67,7 +67,7 @@ public class WalletController {
     } else {
       wallets = service.findAllByUserId(userId);
     }
-		
+    
     if (wallets.isEmpty()) {
       return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     } else {

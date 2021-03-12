@@ -12,7 +12,6 @@ public class TransactionWriteConverter implements Converter<TransactionEntity, D
     DBObject dbo = new BasicDBObject();
     dbo.put("_id", source.getId());
     dbo.put("walletId", source.getWalletId());
-    dbo.put("pepeeee", "juas");
     return dbo;
   }
 

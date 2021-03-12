@@ -43,7 +43,7 @@ public class UserController {
   private UserService service;
 
   @Autowired
-	private UserModelAssembler assembler;
+  private UserModelAssembler assembler;
 
   @RequestMapping(method = RequestMethod.GET)
   public ResponseEntity<CollectionModel<UserModel>> getAll(
@@ -57,7 +57,7 @@ public class UserController {
       users = service.findAll();
     }
 
-		if (users.isEmpty()) {
+    if (users.isEmpty()) {
       return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     } else {
       return new ResponseEntity<>(
