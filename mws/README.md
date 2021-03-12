@@ -1,6 +1,4 @@
 # Pagacoin Micro Web Service
-
-
 ## Development
 
 ```
