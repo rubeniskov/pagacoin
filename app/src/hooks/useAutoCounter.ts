@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
 
-const useAutoCounter = (value: number, duration: number) => {
+const useAutoCounter = (start: number, end: number, duration: number) => {
   const [count, setCount] = useState(0);
   let rafref;
   useEffect(() => {
-    const start = new Date().getTime();
+    const startd = new Date().getTime();
     const inc = () => {
-      const cur = new Date().getTime();
-      const delta = (cur - start) / duration;
+      const curd = new Date().getTime();
+      const delta = (curd - startd) / duration;
       if (delta > 1) {
-        return setCount(value);
+        return setCount(end);
       } else {
-        setCount(delta * value);
+        setCount(start + delta * (end - start));
       }
       rafref = requestAnimationFrame(inc);
     }
@@ -21,7 +21,7 @@ const useAutoCounter = (value: number, duration: number) => {
     return () => {
       cancelAnimationFrame(rafref);
     }
-  }, [value, duration]);
+  }, [end, duration]);
 
   return count;
 }

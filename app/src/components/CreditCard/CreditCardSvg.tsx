@@ -1,6 +1,11 @@
+// Core
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
+// Hooks
 import useAmountCounter from '../../hooks/useAmountCounter';
+// Utils
+import moment from 'moment';
+
 
 const fadeIn = keyframes`
   0% {
@@ -58,13 +63,13 @@ const CreditCardSvgStyled = styled.svg`
     font-size: 14px;
     font-family: Verdana;
   }
-  .amount1{
+  .balance1{
     fill: white;
     font-size: 24px;
     font-family: Verdana;
     text-anchor: end;
   }
-  .amount2{
+  .balance2{
     fill: white;
     font-size: 14px;
     font-family: Verdana;
@@ -95,16 +100,25 @@ const CreditCardSvgStyled = styled.svg`
 `
 
 const CreditCardSvg = ({
-  id = 'ADFSF',
-  name = 'Monica Belluchi',
-  amount = 673432.56,
-  hash = 'b31d032cfdcf47a399990a71e43c5d2a',
-  dueDate = '02/13',
+  id,
+  name,
+  balance,
+  cdate,
+  currency = '€',
+  className,
+  style
 }) => {
-  const { value, pad } = useAmountCounter(amount);
+  const { value, pad } = useAmountCounter(balance);
   
   return (
-  <CreditCardSvgStyled xmlns="http://www.w3.org/2000/svg" height="256" width="406" viewBox="0 128 406 256">
+  <CreditCardSvgStyled 
+    xmlns="http://www.w3.org/2000/svg" 
+    height="256" 
+    width="406" 
+    viewBox="0 128 406 256"
+    className={className}
+    style={style}
+  >
     <clipPath id="base-clip">
       <rect y="128" width="406" height="256" rx="15"/>
     </clipPath>
@@ -119,28 +133,28 @@ const CreditCardSvg = ({
     <text className='text1' x="10" y="190">
       {name}
     </text>
-    <text className='amount1' x={pad} y="220">
-      ${value[0]}
+    <text className='balance1' x={pad} y="220">
+      {currency} {value[0]}
     </text>
-    <text className='amount2' x={pad} y="220">
+    <text className='balance2' x={pad} y="220">
       .{value[1]}
     </text>
     <text className='text3' x="150" y="260">
-      {hash}
+      {id}
     </text>
 
     <text className='text4' x="15" y="330">
-      DUE DATE
+      CDATE
     </text>
     <text className='text1' x="15" y="350">
-      {dueDate}
+      {moment(Number(cdate)).format('MM/YY')}
     </text>
 
     <text className='text4' x="180" y="330">
       CARD NUMBER
     </text>
     <text className='text1' x="180" y="350">
-      {id}
+      AEI34
     </text>
   </CreditCardSvgStyled>
 )}

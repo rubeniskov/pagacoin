@@ -33,27 +33,35 @@ const data = [{
 const slide = keyframes`
   0% {
     transform: translate(0, 0);
-    z-index: 1;
+    z-index: 101;
   }
   20% {
     transform: scale(1.1) translate(0, 100%);
-    z-index: -1;
+    z-index: 100;
   }
   50% {
-    z-index: -1;
+    z-index: 100;
     transform: scale(0.97) translate(0, 0);
   }
 `
 
 const Container = styled.div`
-  position: absolute;
+  width: 100%;
+  position: relative;
+  height: 0;
+  padding: 42%;
+  margin-bottom: 1rem;
   > div {
+    width: 100%;
     position: absolute;
     top: 0;
     left: 0;
     &.selected {
       animation: 2s ${slide} ease-in-out;
     }
+  }
+  svg {
+    width: 100%;
   }
 `
 

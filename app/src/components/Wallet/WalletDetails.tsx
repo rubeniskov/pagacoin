@@ -1,9 +1,13 @@
 import React from 'react';
-import CreditCardSlider from '../CreditCard/CreditCardSlider';
+import CreditCard from '../CreditCard/CreditCardSvg';
+import WalletPayment from './WalletPayment';
 
-const WalletDetails = () => {
+const WalletDetails = (props) => {
   return (
-    <CreditCardSlider />
+    <div> 
+      <CreditCard style={{ width: '100%'}} {...props}/>
+      <WalletPayment {...props}/>
+    </div>
   );
 }
 
