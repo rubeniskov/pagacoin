@@ -16,6 +16,9 @@ const InfoBadgeContainer = styled(Button)`
     background-color: transparent;
     outline: none;
     color: #757575;
+    &:hover {
+      border-color: ${({ theme }) => theme.color.primary.default}
+    }
 `
 
 export type BadgeInfoProps = ButtonHTMLAttributes<HTMLButtonElement> & {

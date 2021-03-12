@@ -15,7 +15,11 @@ const AutocompletePopover = styled.div`
   border-radius: 5px;
   margin-top: 0.5rem;
   z-index: 99;
+  max-height: 10rem;
+  overflow: scroll;
 `
+
+const AutocompletePopoverViewport = styled.div``
 
 const AutocompleteItem = styled.div`
   padding: 0.5rem;
@@ -59,15 +63,17 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
       <TextField ref={inputRef} {...restProps} onFocus={handleFocus} onBlur={handleBlur}/> 
       {showSuggestions && !!suggestions.length && 
       <AutocompletePopover>
-        {suggestions.map((suggestion, idx) => (
-          <AutocompleteItem 
-            role="button" 
-            key={idx} 
-            tabIndex={idx} 
-            onClick={handleSelect}>
-              {formatValue(suggestion)}
-          </AutocompleteItem>
-        ))}
+        <AutocompletePopoverViewport>
+          {suggestions.map((suggestion, idx) => (
+            <AutocompleteItem 
+              role="button" 
+              key={idx} 
+              tabIndex={idx} 
+              onClick={handleSelect}>
+                {formatValue(suggestion)}
+            </AutocompleteItem>
+          ))}
+        </AutocompletePopoverViewport>
       </AutocompletePopover>}
     </AutocompleteContainer>
   )
