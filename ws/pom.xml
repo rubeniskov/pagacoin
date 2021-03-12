@@ -5,13 +5,13 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.4.2</version>
+    <version>2.4.3</version>
     <relativePath/>
   </parent>
-  <groupId>${groupId}</groupId>
-  <artifactId>${name}</artifactId>
-  <version>${version}-${build}</version>
-  <name>${name}</name>
+  <groupId>com.pagantis.pagacoin</groupId>
+  <artifactId>pagacoin</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>pagacoin</name>
   <description>PagaCoin assessment project for Pagantis</description>
   <properties>
     <java.version>1.8</java.version>
@@ -22,11 +22,6 @@
       <artifactId>spring-boot-starter-hateoas</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.springframework.hateoas</groupId>
-      <artifactId>spring-hateoas</artifactId>
-      <version>0.15.0.RELEASE</version>
-    </dependency>
-    <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-mongodb</artifactId>
     </dependency>
@@ -35,14 +30,26 @@
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
-
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-devtools</artifactId>
       <optional>true</optional>
       <scope>runtime</scope>
     </dependency>
-
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.github.javafaker</groupId>
+      <artifactId>javafaker</artifactId>
+      <version>1.0.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-math3</artifactId>
+      <version>3.5</version>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
