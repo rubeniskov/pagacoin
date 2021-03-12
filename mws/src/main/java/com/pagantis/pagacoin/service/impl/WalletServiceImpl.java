@@ -76,7 +76,7 @@ public class WalletServiceImpl implements WalletService {
 
       this.execTransferMoney(walletId, sourceId, amount);
 
-      return this.findById(walletId);
+      return this.findById(sourceId);
     }
 
     @Override
