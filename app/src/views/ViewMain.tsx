@@ -12,8 +12,8 @@ import ViewUsers from './ViewUsers';
 import ViewUser from './ViewUser';
 import ViewWallets from './ViewWallets';
 import ViewWallet from './ViewWallet';
-// import ViewTransactions from './ViewTransactions';
-// import ViewTransaction from './ViewTransaction';
+import ViewTransactions from './ViewTransactions';
+import ViewTransaction from './ViewTransaction';
 import ViewHome from './ViewHome';
 
 
@@ -58,8 +58,18 @@ const ViewMain = () => {
               </ViewRoutingRoute>
             </ViewRouting>
           </Route>
+          <Route path="/transactions">
+            <ViewRouting maxRoutingViews={2}>
+              <ViewRoutingRoute path="/transactions" layout={LayoutAnimated}>
+                <ViewTransactions />
+              </ViewRoutingRoute>
+              <ViewRoutingRoute path="/transactions/:transactionId" layout={LayoutAside}>
+                <ViewTransaction />
+              </ViewRoutingRoute>
+            </ViewRouting>
+          </Route>
           <Route path="/">
-            <ViewHome path="/" />
+            <ViewHome/>
           </Route>
         </Switch>
 
