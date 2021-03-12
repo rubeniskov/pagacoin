@@ -8,7 +8,9 @@ module.exports = () => ({
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
+    publicPath: '/',
   },
+  stats: { errorDetails: true },
   devtool: 'eval-source-map',
   devServer: {
     hot: true,
@@ -17,7 +19,7 @@ module.exports = () => ({
   resolve: {
     extensions: [ '.tsx', '.ts', '.js' ],
     fallback: {
-      "process": require.resolve("process/browser")
+      "process": require.resolve("process/browser"),
     }
   },
   module: {
@@ -30,10 +32,20 @@ module.exports = () => ({
       test: /\.(png|jpe?g|gif|svg)$/i,
       use: [
         {
-          loader: 'file-loader',
+          loader: 'url-loader',
         },
       ],
-    },]
+    }, {
+      test: /\.(eot|svg|ttf|woff|woff2|otf)$/,
+      use: [{
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]',
+          limit: 10000,
+          mimetype: 'application/font-woff',
+        },
+      }],
+    }]
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -57,14 +69,14 @@ module.exports = () => ({
         cookieDomainRewrite: "localhost",
         target: "http://localhost:8080/",
         pathRewrite: { '^/api': '' },
-        onProxyReq: proxyReq => {
-          // Browers may send Origin headers even with same-origin
-          // requests. To prevent CORS issues, we have to change
-          // the Origin to match the target URL.
-          if (proxyReq.getHeader('origin')) {
-            proxyReq.setHeader('origin', gdc);
-          }
-        }
+        // onProxyReq: proxyReq => {
+        //   // Browers may send Origin headers even with same-origin
+        //   // requests. To prevent CORS issues, we have to change
+        //   // the Origin to match the target URL.
+        //   if (proxyReq.getHeader('origin')) {
+        //     proxyReq.setHeader('origin', gdc);
+        //   }
+        // }
       },
     }
   }
