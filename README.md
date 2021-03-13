@@ -1,18 +1,16 @@
-# Building the backend service
+# Getting started
+
+```
+$ git clone https://github.com/rubeniskov/pagacoin.git
+$ cd pagacoin
+$ make run
+```
+
+![./docs/showcase.app.gif](./docs/showcase.gif)
+
+
+# Building
 
 ```shell
 $ make build
 ```
-
-# Run in local environment
-
-```shell
-$ make <run|dev|build> DC=
-```
-
-# Pagacoin React app
-
-[![./app/docs/showcase.app.gif](./app/docs/showcase.app.gif)](./app)
-
-# Pagacoin Springboot Microservice
-[![../mws/docs/shell.output.make.run.png](./mws/docs/shell.output.make.run.png)](./mws)
