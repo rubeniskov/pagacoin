@@ -108,60 +108,19 @@ public class MockDataServiceImpl implements MockDataService {
     }
     return new MockDataStatusModel();
   }
+
+  @Override
+  public long getUsersCount(){
+    return userRepository.count();
+  }
+
+  @Override
+  public long getWalletsCount(){
+    return walletRepository.count();
+  }
+
+  @Override
+  public long getTransactionsCount(){
+    return transactionRepository.count();
+  }
 }
-
-
-// userRepository.deleteAll();
-// transactionRepository.deleteAll();
-// walletRepository.deleteAll();
-
-// Faker faker = new Faker();
-// ArrayList<WalletEntity> wallets = new ArrayList<WalletEntity>();
-// Random rand = new Random();
-
-// Integer minUsers = 1;
-// Integer maxUsers = 100;
-// Integer minWalletsPerUser = 0;
-// Integer maxWalletsPerUser = 25;
-// Integer minTransactions = 0;
-// Integer maxTransactions = 10000;
-// Integer minTransactionAmount = 0;
-// Integer maxTransactionAmount = 1000;
-
-// Integer usersCount = rand.nextInt(maxUsers - minUsers) + minUsers;
-
-// for(int i = 0; i <= usersCount; i++ ) {
-//   UserEntity user = new UserEntity(faker.name().firstName(), faker.name().lastName());
-//   Integer walletsCount = rand.nextInt(maxWalletsPerUser - minWalletsPerUser) + minWalletsPerUser;
-
-//   userRepository.save(user);
-  
-//   for(int j = 0; j <= walletsCount; j++ ) {
-//     WalletEntity wallet = new WalletEntity(user.getId());
-//     walletRepository.save(wallet);
-//     wallets.add(wallet);
-//   }
-// }
-
-// Integer transactionsCount = rand.nextInt(maxTransactions - minTransactions) + minTransactions;
-
-// for(int i = 0; i <= transactionsCount; i++ ) {
-//   TransactionEntity transaction;
-//   Integer walletIndex = rand.nextInt(wallets.size());
-//   WalletEntity wallet = wallets.get(walletIndex);
-//   Double amount = Precision.round((rand.nextDouble() * maxTransactionAmount - minTransactionAmount) + minTransactionAmount, 2);
-  
-//   // 70% Transfers between wallets
-//   // if (rand.nextInt(100) > 70) {
-//   if (true) {  
-//     Integer sourceWalletIndex = rand.nextInt(wallets.size());
-//     WalletEntity sourceWallet = wallets.get(sourceWalletIndex);
-//     transaction = new TransactionEntity(wallet.getId(), sourceWallet.getId(), amount);
-//   } else {
-//     transaction = new TransactionEntity(wallet.getId(), amount);
-//   }
-
-//   transactionRepository.save(transaction);
-// }
-
-// return new ResponseEntity<String>("Example data generated succesfuly", HttpStatus.OK);
