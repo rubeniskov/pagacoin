@@ -2,6 +2,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack')
 
+const proxyHost = process.env.PAGANTIS_API || 'localhost:8080';
+
 module.exports = () => ({
   mode: process.env.NODE_ENV ? process.env.NODE_ENV : 'development',
   entry: "./src/App.tsx",
@@ -66,17 +68,9 @@ module.exports = () => ({
     proxy: {
       "/api": {
         changeOrigin: true,
-        cookieDomainRewrite: "localhost",
-        target: "http://localhost:8080/",
+        cookieDomainRewrite: proxyHost.split(':')[0],
+        target: `http://${proxyHost}/`,
         pathRewrite: { '^/api': '' },
-        // onProxyReq: proxyReq => {
-        //   // Browers may send Origin headers even with same-origin
-        //   // requests. To prevent CORS issues, we have to change
-        //   // the Origin to match the target URL.
-        //   if (proxyReq.getHeader('origin')) {
-        //     proxyReq.setHeader('origin', gdc);
-        //   }
-        // }
       },
     }
   }
