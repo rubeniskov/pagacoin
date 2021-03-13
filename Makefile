@@ -1,12 +1,12 @@
 build: 
-	$(MAKE) -C ws build
+	$(MAKE) -C mws build
 	$(MAKE) -C app build
 
 run: 
-	$(MAKE) -C ws run &
+	$(MAKE) -C mws run &
 	$(MAKE) -C app run
 
 dev: 
-	$(MAKE) -C ws dev &
+	$(MAKE) -C mws dev &
 	$(MAKE) -C app dev
 	
