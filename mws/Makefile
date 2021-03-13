@@ -24,8 +24,13 @@ DCR_RUN=$(DC) run $(DOCKER_ARGS) \
         --publish $(LRPORT):$(LRPORT) \
         --link $(DBCONTAINER) \
         --env dbhost=$(DBCONTAINER) \
-        --rm \
-        --name $(CONTAINERNAME) \
+        $(DOCKER_IMG)
+DCR_DEV=$(DC) run $(DOCKER_ARGS) \
+        --tty \
+        --publish $(PORT):$(PORT) \
+        --publish $(LRPORT):$(LRPORT) \
+        --link $(DBCONTAINER) \
+        --env dbhost=$(DBCONTAINER) \
         $(DOCKER_IMG)
 endif
 
@@ -40,7 +45,7 @@ db:
 
 # Development
 dev: db docker
-	$(DCR_RUN) ./mvnw spring-boot:run $(JARGS)
+	$(DCR_DEV) ./mvnw spring-boot:run $(JARGS)
 
 # Maven build jar package
 build: docker

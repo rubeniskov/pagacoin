@@ -19,4 +19,4 @@ if ! command -v fswatch > /dev/null; then
 fi
 
 echo "Starting watcher on $WFOLDER"
-fswatch -d $WFOLDER | xargs -n1 -I{} $0 compile $(echo "$@" | sed 's/spring-boot:run//')
+fswatch -d $WFOLDER | xargs -n1 -I{} ./mvnw compile $(echo "$@" | sed 's/spring-boot:run//')
