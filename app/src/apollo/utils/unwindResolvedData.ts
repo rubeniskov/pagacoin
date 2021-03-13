@@ -1,6 +1,6 @@
 
 export interface ResolveDataOpts {
-  dataKey: string,
+  dataKey?: string,
   mapResult?: Function
 } 
 

@@ -42,3 +42,15 @@ export const GET_WALLET_BY_ID = gql`
   }
 `;
 
+export const MOCK_DATA_STATUS = gql`
+  query GetMockDataStatus {
+    mockDataStatus {
+      statistics {
+        users,
+        transactions,
+        wallets
+      }
+    }
+  }
+`;
+

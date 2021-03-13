@@ -13,6 +13,7 @@ export default {
     transactions: createResolver('/transactions', {
       mapResult: (result) => result.transactions
     }),
+    mockDataStatus: createResolver('/mock/status')
   },
 
   Mutation: {

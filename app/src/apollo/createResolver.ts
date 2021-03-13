@@ -12,7 +12,7 @@ const DEFAULT_HEADERS = {
   'Content-Type': 'application/json'
 }
 
-const createResolver = (path: string, opts: ResolverOptions) => (root, args, ctx) => {
+const createResolver = (path: string, opts?: ResolverOptions) => (root, args, ctx) => {
   const { uri: baseUri, ...restOpts } = { ...opts, ...getOptsFromContext(ctx) };
 
   const vars = { ...root, ...args };
