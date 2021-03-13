@@ -1,8 +1,10 @@
 package com.pagantis.pagacoin.controller;
 
+// Core
 import java.util.List;
 import java.util.ArrayList;
-
+import java.util.Optional;
+// Springboot
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,26 +13,26 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
+import org.springframework.hateoas.CollectionModel;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
-
+// Models
 import com.pagantis.pagacoin.model.TransferMoneyPayloadModel;
 import com.pagantis.pagacoin.model.ChargeMoneyPayloadModel;
 import com.pagantis.pagacoin.model.WalletModel;
+import com.pagantis.pagacoin.model.WalletPayloadModel;
+// Entities
 import com.pagantis.pagacoin.entity.WalletEntity;
+// Services
 import com.pagantis.pagacoin.service.WalletService;
-
-import java.util.Optional;
+// Repositories
 import com.pagantis.pagacoin.repository.WalletRepository;
+// Assemblers
 import com.pagantis.pagacoin.assembler.WalletModelAssembler;
-
-import org.springframework.hateoas.CollectionModel;
 
 @RestController
 @RequestMapping("/wallets")
@@ -49,8 +51,10 @@ public class WalletController {
   private WalletModelAssembler assembler;
 
   @RequestMapping(method = RequestMethod.POST)
-  public HttpEntity<WalletEntity> create() {
-    WalletEntity wallet = new WalletEntity("yeah");
+  public HttpEntity<WalletEntity> create(
+    @RequestBody WalletPayloadModel payload
+  ) {
+    WalletEntity wallet = new WalletEntity(payload.getUserId());
     repository.save(wallet);
     return new ResponseEntity<WalletEntity>(wallet, HttpStatus.OK);
   }
