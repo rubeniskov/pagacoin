@@ -97,11 +97,7 @@ const ViewRouting: React.FC<ViewRoutingProps> = ({ children, maxRoutingViews = I
           key={idx} 
           {...props} 
           style={ idx < (length - maxRoutingShows) ? { 
-          width: '0px',
-          overflow: 'hidden',
-          padding:0,
-          margin: 0,
-          flexGrow: '0',
+          display: 'none',
         } : {}}
         />)}
       </ViewRoutingNav>

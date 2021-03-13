@@ -35,6 +35,8 @@ const ViewUsers = () => {
 
   const { loading, error, data } = useQuery(LIST_USERS);
 
+  console.log('PEPEPEPEPEPEPE');
+
   useOutsideClick(layoutRef, evt => {
     push(`${path}`);
   });

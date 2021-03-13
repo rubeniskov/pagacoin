@@ -1,5 +1,5 @@
 // Core
-import React, { MouseEventHandler, useCallback } from 'react';
+import React, { forwardRef, MouseEventHandler, useCallback } from 'react';
 import styled from 'styled-components';
 // Components
 import BadgeInfo from '../Badge/BadgeInfo';
@@ -30,14 +30,15 @@ export type UserDetailsProps = {
   onBadgeClick: MouseEventHandler<MouseEvent>
 }
 
-const UserDetails: React.FC<UserDetailsProps> = ({
+const UserDetails: React.FC<UserDetailsProps> = forwardRef(({
   userId,
   onBadgeClick,
+  style,
   ...restProps
-}) => {
+}, ref) => {
 
   return (
-    <div>
+    <div ref={ref} style={style}>
       <UserAvatar src="https://www.w3schools.com/w3images/avatar1.png" />
       <UserBadgeContainer>
         <UserBadgeItem>
@@ -53,7 +54,7 @@ const UserDetails: React.FC<UserDetailsProps> = ({
       <UserForm userId={userId} {...restProps}/>
     </div>
   );
-}
+})
 
 
 export default UserDetails;

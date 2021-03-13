@@ -113,8 +113,6 @@ const CreditCardSvg = ({
   return (
   <CreditCardSvgStyled 
     xmlns="http://www.w3.org/2000/svg" 
-    height="256" 
-    width="406" 
     viewBox="0 128 406 256"
     className={className}
     style={style}
