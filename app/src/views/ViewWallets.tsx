@@ -40,13 +40,10 @@ const ViewWallets = () => {
 
   const [createWallet] = useMutation(CREATE_WALLET, {
     variables: params,
-    onCompleted: () => {
-      refetch();
-    }
   });
 
   // TODO
-  useOutsideClick(layoutRef, evt => {
+  useOutsideClick(layoutRef, () => {
     push(`${path}`);
   });
   
@@ -55,8 +52,10 @@ const ViewWallets = () => {
   }, [push, location]);
 
   const handleCreateWallet = useCallback(() => {
-    createWallet();
-  }, []);
+    createWallet()
+      .then(({ data: { createWallet: { id } }}) => push(`${generatePath(path, params)}/${id}`))
+      .then(() => refetch());
+  }, [path, params]);
 
   const { params: { walletId } } = matchPath(location.pathname, {
     path: `${path}/:walletId`,

@@ -35,7 +35,7 @@ const UserForm: React.FC<UserFormProps> = ({
     lastname: ''
   });
 
-  const { loading, error } = useQuery(GET_USER_BY_ID, {
+  const { loading, error, data: { user: userData } = {} } = useQuery(GET_USER_BY_ID, {
     variables: { userId },
     skip: !userId,
     onCompleted: ({ user }) => {
@@ -43,8 +43,8 @@ const UserForm: React.FC<UserFormProps> = ({
     }
   });
 
-  const [createUser, createUserResult] = useMutation(CREATE_USER);
-  const [updateUser, updateUserResult] = useMutation(UPDATE_USER);
+  const [createUser] = useMutation(CREATE_USER);
+  const [updateUser] = useMutation(UPDATE_USER);
 
   const handleSuccess = (data) => {
     if (typeof onSuccess === 'function') {
@@ -80,7 +80,7 @@ const UserForm: React.FC<UserFormProps> = ({
   }, []);
 
   if (loading) return <p>Loading...</p>;
-
+  
   return (
     <>
       <BannerError error={error} />
@@ -105,7 +105,16 @@ const UserForm: React.FC<UserFormProps> = ({
           fit/>
       </FormControl>
       <FormActions>
-        <Button fit onClick={handleClick} disabled={loading || !user.firstname || !user.lastname}>{userId ? 'Update' : 'Create' } user</Button>
+        <Button 
+          fit 
+          onClick={handleClick} 
+          disabled={
+            loading || 
+            !user.firstname || 
+            !user.lastname || 
+            (!!userId && (userData.firstname == user.firstname && userData.lastname == user.lastname))}>
+            {userId ? 'Update' : 'Create' } user
+        </Button>
       </FormActions>
     </>
   );

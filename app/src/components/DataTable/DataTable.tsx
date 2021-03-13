@@ -66,7 +66,7 @@ const DataTable: React.FC<DataTableProps> = ({
     if (target && target.id) {
       onRowClick(evt, data.find((values) => target.id === values[key]));
     }
-  }, [onRowClick, key]);
+  }, [data, onRowClick, key]);
   
   const tableHeads = useMemo(() => columns.map(({ name }) => (<th key={name}>{name}</th>)), [columns]);
 

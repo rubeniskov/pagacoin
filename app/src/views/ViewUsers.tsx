@@ -1,5 +1,5 @@
 // Core
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 // Hooks
 import { useQuery } from '@apollo/client';
@@ -33,9 +33,7 @@ const ViewUsers = () => {
   const { push, location } = useHistory();
   const { path, isExact, ...rest } = useRouteMatch();
 
-  const { loading, error, data } = useQuery(LIST_USERS);
-
-  console.log('PEPEPEPEPEPEPE');
+  const { loading, error, data, refetch } = useQuery(LIST_USERS);
 
   useOutsideClick(layoutRef, evt => {
     push(`${path}`);
@@ -50,6 +48,10 @@ const ViewUsers = () => {
     exact: false,
     strict: false
   }) || {};
+
+  useEffect(() => {
+    refetch();
+  }, [params.userId])
 
   
   
