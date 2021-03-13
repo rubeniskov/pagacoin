@@ -17,7 +17,7 @@ const HomeView = () => {
     <div>
       <h1>Home</h1>
       <div style={{ padding: '1rem 0' }}>
-        <p>Initialize de database with default data</p>
+        <p>Initialize the database with default data</p>
         {loading && <p>Executing population, please wait</p>}
         <BannerError error={error} />
         <Button disabled={loading} onClick={handlePopulateClick}>{loading ? 'Loading' : 'Initialize'}</Button>
