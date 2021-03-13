@@ -62,7 +62,7 @@ public class MockDataServiceImpl implements MockDataService {
     Integer minWalletsPerUser = 1;
     Integer maxWalletsPerUser = 5;
     Integer minTransactions = 0;
-    Integer maxTransactions = 10000;
+    Integer maxTransactions = 2000;
     Integer minTransactionAmount = 0;
     Integer maxTransactionAmount = 1000;
 
