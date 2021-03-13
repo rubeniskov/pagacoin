@@ -1,20 +1,30 @@
+// Core
 import React, { useCallback, useRef } from 'react';
-import { useQuery } from '@apollo/client';
 import styled from 'styled-components';
-import UserTable from '../components/User/UserTable';
+// Hooks
+import { useQuery } from '@apollo/client';
+import { useRouteMatch, matchPath, generatePath } from 'react-router';
+import useOutsideClick from '../hooks/useOutsideClick';
+import { useHistory } from 'react-router';
 // Queries
 import { LIST_USERS } from '../apollo/queries';
-// import WalletTable from '../components/Wallet/WalletTable';
-// import TransactionTable from '../components/Transaction/TransactionTable';
-// import TransactionsView from './Transactions';
-import { useHistory } from 'react-router';
-import LayoutAside from '../layouts/Aside';
-import { useRouteMatch, matchPath } from 'react-router';
-import useOutsideClick from '../hooks/useOutsideClick';
+// Components
+import { Plus } from '@styled-icons/boxicons-regular';
+import UserTable from '../components/User/UserTable';
+import LinkButton from '../components/LinkButton';
 
 
 const Jumbo = styled.div`
-  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  a {
+    color: white;
+    border-radius: 50%;
+    svg {
+      width: 1rem;
+    }
+  }
 `
 
 const ViewUsers = () => {
@@ -48,6 +58,7 @@ const ViewUsers = () => {
     <div>
       <Jumbo>
         <h1>Users</h1>
+        <LinkButton to={generatePath(`${path}/:userId`, { userId: 'create' })}><Plus /></LinkButton>
       </Jumbo>
       <UserTable 
         onRowClick={handleRowClick} 

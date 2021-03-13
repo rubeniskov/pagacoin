@@ -1,18 +1,20 @@
 import { ApolloLink, Resolvers } from '@apollo/client';
 import { Observable } from '@apollo/client/utilities';
 import { makeExecutableSchema } from '@graphql-tools/schema';
+import pMinDelay from "p-min-delay";
 // import { parseAndCheckHttpResponse } from '@apollo/client/link/http/parseAndCheckHttpResponse';
 import { GraphQLSchema, DocumentNode, print, graphql } from 'graphql';
 
 export interface AlpsOptions {
   uri?: string
   schema: string | GraphQLSchema | DocumentNode,
-  resolvers: Resolvers
+  resolvers: Resolvers,
+  minDelay?: number,
 }
 
 export const createAlpsLink = (linkOptions: AlpsOptions) => {
 
-  const { uri, schema, resolvers } = linkOptions;
+  const { uri, schema, resolvers, minDelay = 600 } = linkOptions;
   
   if (!uri) throw new Error('uri must be defined for AlpsLink');
 
@@ -49,6 +51,7 @@ export const createAlpsLink = (linkOptions: AlpsOptions) => {
         variables,
         operationName
       )
+      .then((data) => pMinDelay(Promise.resolve(data), minDelay))
       .then(data => {
         observer.next(data);
         observer.complete();
@@ -57,45 +60,6 @@ export const createAlpsLink = (linkOptions: AlpsOptions) => {
         console.error(err);
         observer.error(err);
       });
-
-      // fetch(`${uri}/transactions`)
-      //   .then(response => {
-      //     operation.setContext({ response });
-      //     console.log('response', response);
-      //     return response.json();
-      //   })
-      //   // .then(parseAndCheckHttpResponse(operation))
-      //   .then((data) => {
-      //     console.log('data', data);
-      //     const result: any = {
-      //       "data": { transactions: data._embedded.transactions.map(({ amount, ...rest }) => ({
-      //         ...rest,
-      //         amount, __typename: "Transasction" 
-      //       })) }
-      //       /*{
-      //         "rates": [
-      //           {
-      //             "currency": "AAVE",
-      //             "rate": "0.0024615899655746646",
-      //             "__typename": "ExchangeRate"
-      //           },
-      //           {
-      //             "currency": "AED",
-      //             "rate": "3.6732",
-      //             "__typename": "ExchangeRate"
-      //           }
-      //         ]
-      //       }*/
-      //     };
-
-      //     console.log(result);
-      //     return result;
-      //   })
-      //   .then(result => {
-      //     observer.next(result);
-      //     observer.complete();
-      //     return result;
-      //   });
     });
   });
 };

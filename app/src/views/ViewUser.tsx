@@ -8,17 +8,12 @@ const ViewUser: React.FC<any> = (props) => {
   const { push, location } = useHistory();
   const { path, params } = useRouteMatch() || {};
   const { userId } = params || {};
-  const { loading, error, data } = useQuery(GET_USER_BY_ID, {
-    variables: { userId },
-    onCompleted: () => {
-      console.log('yeah');
-    }
-  });
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :( {error.toString()}</p>;
   
-  return <UserDetails {...data.user} onBadgeClick={(evt) => push(`${generatePath(path, params)}/wallets`)}/>
+  return <UserDetails  
+    userId={userId === 'create' ? null : userId}
+    onSuccess={({ id: userId  }) => push(generatePath(path, { userId }))}
+    onBadgeClick={(evt) => push(`${generatePath(path, params)}/wallets`)}
+  />
 }
 
 export default ViewUser;

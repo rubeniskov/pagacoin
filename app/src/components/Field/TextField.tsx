@@ -12,6 +12,11 @@ const TextField = styled.input<TextFielProps>`
   border: none;
   background: #efefef;
   font-family: 'Montserrat',sans-serif;
+  :disabled {
+    background: #c9c8c8;
+    color:  #efefef;
+    cursor: not-allowed;
+  }
 ` 
 
 export default TextField;

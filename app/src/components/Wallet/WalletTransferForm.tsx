@@ -33,9 +33,18 @@ const WalletTransferForm: React.FC<WalletTransferFormProps> =  ({
   const [recipientId, setRecipientId] = useState(null);
   const [recipientWalletId, setRecipientWalletId] = useState(null);
 
-  const [transferWalletMoney, { loading, error }] = useMutation(TRANSFER_WALLET_MONEY);
   const [searchUsers, recipientQuery] = useLazyQuery(LIST_USERS);
   const [listRecipientWallets, recipientWalletQuery] = useLazyQuery(LIST_WALLETS);
+
+  const [transferWalletMoney, { loading, error }] = useMutation(TRANSFER_WALLET_MONEY, {
+    onCompleted: () => {
+      if (recipientWalletQuery && recipientWalletQuery.refetch) {
+        recipientWalletQuery.refetch().then(() => {
+          setRecipientWallet(formatValueRecipientWallet(recipientWalletQuery.data.wallets.find(({ id }) => id === recipientWalletId)));
+        });
+      }
+    }
+  });
 
   const debouncedSearchUsers = useDebouncedCallback((query) => {
     searchUsers({
@@ -43,13 +52,17 @@ const WalletTransferForm: React.FC<WalletTransferFormProps> =  ({
     });
   }, 200);
 
-  const debouncedListRecipientWallets = useDebouncedCallback(() => {
-    listRecipientWallets();
+  const debouncedListRecipientWallets = useDebouncedCallback((userId) => {
+    listRecipientWallets({
+      variables: {
+        userId
+      }
+    });
   }, 200);
 
   useEffect(() => {
     if (recipientId) {
-      debouncedListRecipientWallets();
+      debouncedListRecipientWallets(recipientId);
     } else {
       setRecipientWallet('');
       setRecipientWalletId(null);
@@ -63,24 +76,9 @@ const WalletTransferForm: React.FC<WalletTransferFormProps> =  ({
     setRecipientWalletId(null);
   }, []);
 
-  const handleWalletChange = useCallback((evt) => {
-    setRecipientWallet(evt.target.value);
-  }, []);
-
   const handleAmountChange = useCallback((evt) => {
     setAmount(evt.target.value);
   }, []);
-
-  const handleTransferMoneyClick = useCallback(() => {
-    transferWalletMoney({
-      variables: { 
-        walletId, 
-        targetId: recipientWalletId,
-        amount: parseFloat(amount) 
-      }
-    });
-
-  }, [walletId, recipientWalletId, amount]);
 
   const handleRecipientSelect = useCallback((evt, value) => { 
     setRecipient(formatValueRecipient(value))
@@ -93,6 +91,16 @@ const WalletTransferForm: React.FC<WalletTransferFormProps> =  ({
     setRecipientWallet(formatValueRecipientWallet(value));
     setRecipientWalletId(value.id);
   }, []);
+
+  const handleTransferMoneyClick = useCallback(() => {
+    transferWalletMoney({
+      variables: { 
+        walletId, 
+        targetId: recipientWalletId,
+        amount: parseFloat(amount) 
+      }
+    });
+  }, [walletId, recipientWalletId, amount]);
 
   return (
     <>  
@@ -108,7 +116,7 @@ const WalletTransferForm: React.FC<WalletTransferFormProps> =  ({
           disabled={loading}
           onChange={handleRecipientChange}
           suggestions={recipientQuery.data && recipientQuery.data.users}
-          formatValue={({ firstname, lastname }) => `${firstname} ${lastname}`}
+          formatValue={formatValueRecipient}
           onSelect={handleRecipientSelect}
         />
       </FormControl>
@@ -121,9 +129,8 @@ const WalletTransferForm: React.FC<WalletTransferFormProps> =  ({
           disabled={loading||!recipientId}
           fit 
           value={recipientWallet}
-          onChange={handleWalletChange}
           suggestions={recipientWalletQuery.data && recipientWalletQuery.data.wallets}
-          formatValue={({ id, balance }) => `#${id.slice(-6)} -> ${balance}€`}
+          formatValue={formatValueRecipientWallet}
           onSelect={handleRecipientWalletSelect}
           />
       </FormControl>

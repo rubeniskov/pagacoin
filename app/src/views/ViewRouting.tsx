@@ -15,13 +15,11 @@ const ViewRoutingContainer = styled.div`
 `
 
 const ViewRoutingBreadcrumb = styled.div`
-  position: absolute;
-  bottom: 10px;
   font-size: 0.8rem;
   color: #c0c0c0;
+  padding: 1.5rem 0;
   > * {
     padding: 1rem;
-    /* margin: 10px 15px; */
   }
 `
 
@@ -35,10 +33,7 @@ const ViewRoutingNav = styled.div`
 `
 
 const ViewRoutingBackButton = styled(Button)`
-  position: absolute;
   border-radius: 50%;
-  top: 0;
-  transform: translate(-15px, 30px);
   svg {
     width: 1rem;
     height: 1rem;
@@ -75,9 +70,23 @@ const ViewRouting: React.FC<ViewRoutingProps> = ({ children, maxRoutingViews = I
 
   return (
     <ViewRoutingContainer>
-      {prevUrlNode && <ViewRoutingBackButton onClick={(evt) => {
-        push(prevUrlNode);
-      }} style={{position: 'absolute'}}><ArrowBack /></ViewRoutingBackButton>}
+      <ViewRoutingBreadcrumb>
+        {<ViewRoutingBackButton disabled={!prevUrlNode} onClick={(evt) => {
+          push(prevUrlNode);
+        }}><ArrowBack /></ViewRoutingBackButton>}
+        {nodes.map(({ props: { path } }) => path).filter(Boolean).map((path, idx) => {
+          const { url = '' } = matchPath(location.pathname, {
+            path
+          }) || {};
+
+          if (!url)
+          return null;
+          return <>
+            {idx === 0 ? null : '>'}
+            <Link key={url} to={url}>{url.split(/\//).slice(-1)[0]}</Link>
+          </>
+        })}
+      </ViewRoutingBreadcrumb>
       <ViewRoutingNav>
         {inbound.map(({ 
           props, 
@@ -96,20 +105,6 @@ const ViewRouting: React.FC<ViewRoutingProps> = ({ children, maxRoutingViews = I
         } : {}}
         />)}
       </ViewRoutingNav>
-      <ViewRoutingBreadcrumb>
-      {nodes.map(({ props: { path } }) => path).filter(Boolean).map((path, idx) => {
-        const { url = '' } = matchPath(location.pathname, {
-          path
-        }) || {};
-
-        if (!url)
-        return null;
-        return <>
-          {idx === 0 ? null : '>'}
-          <Link to={url}>{url.split(/\//).slice(-1)[0]}</Link>
-        </>
-      })}
-      </ViewRoutingBreadcrumb>
     </ViewRoutingContainer>
   );
 }

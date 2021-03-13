@@ -1,7 +1,7 @@
 
-interface resolveDataOpts {
+export interface ResolveDataOpts {
   dataKey: string,
-  mapResult: Function
+  mapResult?: Function
 } 
 
 const unwindResolvedData = (result: Record<string, any>, opts: resolveDataOpts) => {
