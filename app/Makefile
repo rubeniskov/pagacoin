@@ -1,13 +1,13 @@
 NODEVER=10.19.0
 PORT=9966
 CMD=docker run \
-    -d \
+    --tty \
 		-v $$(pwd):/root \
 		-w /root \
     --link pagantis-api \
     --env PAGANTIS_API=pagantis-api:8080 \
 		--entrypoint='' \
-    	-p $(PORT):9966 \
+    --publish $(PORT):9966 \
 		node:$(NODEVER)-alpine
 
 install: 
@@ -16,5 +16,5 @@ install:
 build: install
 	$(CMD) yarn build
 
-run: 
+run: install
 	$(CMD) yarn start
