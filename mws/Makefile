@@ -1,6 +1,6 @@
-GROUPID=$(shell xpath pom.xml "//project/groupId/text()" 2>/dev/null|awk -F. '{ print $$2 }')
-NAME=$(shell xpath pom.xml "//project/name/text()" 2>/dev/null)
-VERSION=$(shell xpath pom.xml "//project/version/text()" 2>/dev/null)
+GROUPID=$(shell xpath pom.xml -e "//project/groupId/text()" 2>/dev/null|awk -F. '{ print $$2 }')
+NAME=$(shell xpath pom.xml -e "//project/name/text()" 2>/dev/null)
+VERSION=$(shell xpath pom.xml -e "//project/version/text()" 2>/dev/null)
 PORT=8080
 LRPORT=35729
 DBCONTAINER=pagacoin-db
